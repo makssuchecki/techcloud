@@ -2,11 +2,17 @@ FROM node:20-alpine AS deps
 
 WORKDIR /app
 
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+
 COPY package*.json ./
 RUN npm ci
 
 FROM node:20-alpine AS build
 WORKDIR /app
+
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -14,6 +20,16 @@ COPY . .
 RUN npm run build
 
 FROM nginxinc/nginx-unprivileged:alpine AS production
+
+ARG BUILD_DATE
+ARG VERSION
+ARG NODE_ENV=production
+
+ENV NODE_ENV=$NODE_ENV
+
+LABEL org.opencontainers.image.created=$BUILD_DATE
+LABEL org.opencontainers.image.version=$VERSION
+LABEL org.opencontainers.image.title="product-dashboard-frontend"
 
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html

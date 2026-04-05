@@ -13,7 +13,7 @@ FROM node:20-alpine AS test
 WORKDIR /app
 
 ARG NODE_ENV=production
-ENV NODE_ENV=test
+ENV NODE_ENV=tests
 
 COPY package*.json ./
 RUN npm ci
@@ -37,7 +37,6 @@ LABEL org.opencontainers.image.version=$VERSION
 LABEL org.opencontainers.image.title="product-dashboard-backend"
 
 COPY --from=deps /app/node_modules ./node_modules
-COPY app.js ./app.js
 COPY server.js ./server.js
 COPY package*.json ./
 
