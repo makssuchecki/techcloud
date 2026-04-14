@@ -8,7 +8,7 @@ const { Pool } = pkg;
 
 const app = express();
 const PORT = 3000;
-const INSTANCE_ID = os.hostname();
+const INSTANCE_ID = process.env.INSTANCE_ID || os.hostname();
 
 app.use(cors());
 app.use(express.json());
@@ -48,6 +48,9 @@ app.use((req, res, next) => {
 app.get("/items", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM items ORDER BY id");
+
+        res.set("X-Instance-ID", process.env.INSTANCE_ID || "unknown");
+
         res.json(result.rows);
     }catch (err){
         res.status(500).json({ error: "DB error"});

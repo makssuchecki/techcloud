@@ -36,7 +36,7 @@ LABEL org.opencontainers.image.version=$VERSION
 LABEL org.opencontainers.image.title="product-dashboard-backend"
 
 COPY --from=deps /app/node_modules ./node_modules
-COPY server.js ./server.js
+COPY . .
 COPY package*.json ./
 
 USER node

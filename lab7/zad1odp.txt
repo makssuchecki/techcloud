@@ -1,0 +1,242 @@
+bash start.sh
+
+Segmentacja sieciowa
+docker network inspect proxy-net
+[
+    {
+        "Name": "proxy-net",
+        "Id": "e2a95be7255668e8677099b002a790a3f741ed357fca58914314ca7f12cd665f",
+[...]
+                {
+                    "Subnet": "172.20.0.0/24",
+                    "Gateway": "172.20.0.1"
+                }
+            ]
+        },
+[...]
+        "Containers": {
+            "3fafc171475705755f088026cb0d8282442b9d23af4b644a053b6f438e3499ca": {
+                "Name": "backend_1",
+                "EndpointID": "ee22b6e03cfcd7f46f74e42f1874d9dfd8373811469c439a5ab0e1faae9f378e",
+                "MacAddress": "02:42:ac:14:00:0a",
+                "IPv4Address": "172.20.0.10/24",
+                "IPv6Address": ""
+            },
+            "c8f1d792764eb01ce08211bdfc68f37ef6dfd5b299c4607a7d604a7ce054653f": {
+                "Name": "backend_2",
+                "EndpointID": "ac9f85ba1db5edaf97371abbe413ac6783166953ccf0120332593935f3088985",
+                "MacAddress": "b2:4b:ab:aa:1f:2b",
+                "IPv4Address": "172.20.0.11/24",
+                "IPv6Address": ""
+            },
+            "df11a4503c11ae51e0dfee16e75b6123c21050cfbb98286a6643a95b93e7b41a": {
+                "Name": "nginx",
+                "EndpointID": "c45700714b5395512173a6182182a9ece7d62fd1837a0adbbcb9deaedeb8d271",
+                "MacAddress": "c2:bf:ed:40:36:22",
+                "IPv4Address": "172.20.0.2/24",
+                "IPv6Address": ""
+            }
+[...]
+
+docker network inspect app-net
+[
+    {
+        "Name": "app-net",
+        "Id": "4a3e4fabc65e57ea8fb0d10b0f3025caf5f4b95528674e7e4a4696b805e8387a",
+[...]
+            "Config": [
+                {
+                    "Subnet": "172.21.0.0/24",
+                    "Gateway": "172.21.0.1"
+                }
+            ]
+        },
+[...]
+        "Labels": {},
+        "Containers": {
+            "3fafc171475705755f088026cb0d8282442b9d23af4b644a053b6f438e3499ca": {
+                "Name": "backend_1",
+                "EndpointID": "5f121649bb7cedc4a3113e7e621cc624f3db14eb20ae28c08ccaf415ed2a284a",
+                "MacAddress": "92:40:25:44:14:ef",
+                "IPv4Address": "172.21.0.11/24",
+                "IPv6Address": ""
+            },
+            "6a7df353bb9faa0f7e16626d20afd51a964bb6ae95addafa0b8189e54974a666": {
+                "Name": "redis",
+                "EndpointID": "b7382cd0be34aa92144aa05088817af8761a194b6ed27342c040cf52697d4353",
+                "MacAddress": "96:80:ea:32:ff:71",
+                "IPv4Address": "172.21.0.10/24",
+                "IPv6Address": ""
+            },
+            "9e2aaceba3f12bfb71930675e2d8e0b0b2de5fe0228d98d73acc331a9bc462ad": {
+                "Name": "worker",
+                "EndpointID": "e4ee28b1a4d419677c5a6e2751eb01f4a527706b9fc7993ba0773ef1f1fe7062",
+                "MacAddress": "0a:85:5c:9d:3a:15",
+                "IPv4Address": "172.21.0.20/24",
+                "IPv6Address": ""
+            },
+            "c8f1d792764eb01ce08211bdfc68f37ef6dfd5b299c4607a7d604a7ce054653f": {
+                "Name": "backend_2",
+                "EndpointID": "72ce6ceb902cd670294078bfb6072e68d5e05cf6b142da5f1102b91e4c69fd39",
+                "MacAddress": "4a:29:9a:9e:55:c9",
+                "IPv4Address": "172.21.0.12/24",
+                "IPv6Address": ""
+            }
+        },
+[...]
+
+docker network inspect db-net
+[
+    {
+        "Name": "db-net",
+        "Id": "444d57bf0c91531dcdfe845ae2233eeb288641d679d17fca8cb962f8a77c4cde",
+[...]
+            "Config": [
+                {
+                    "Subnet": "172.22.0.0/24",
+                    "Gateway": "172.22.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {},
+        "Containers": {
+            "3fafc171475705755f088026cb0d8282442b9d23af4b644a053b6f438e3499ca": {
+                "Name": "backend_1",
+                "EndpointID": "b8fa6d7b6f34d20ddf964affd9a3b00d9087fb9dda7ac49c03d63a54462f0228",
+                "MacAddress": "d2:95:8c:eb:55:05",
+                "IPv4Address": "172.22.0.11/24",
+                "IPv6Address": ""
+            },
+            "9e2aaceba3f12bfb71930675e2d8e0b0b2de5fe0228d98d73acc331a9bc462ad": {
+                "Name": "worker",
+                "EndpointID": "776bf20d5fca92f39929cd597d4263af77f0c93478cd970cb06bf192c0f783aa",
+                "MacAddress": "8e:ba:31:b4:ae:ca",
+                "IPv4Address": "172.22.0.20/24",
+                "IPv6Address": ""
+            },
+            "c8f1d792764eb01ce08211bdfc68f37ef6dfd5b299c4607a7d604a7ce054653f": {
+                "Name": "backend_2",
+                "EndpointID": "cf9f2bc3ed47e6d915d847432cad3519c88cecda721127047530f13097c9ae63",
+                "MacAddress": "ce:46:f6:db:21:32",
+                "IPv4Address": "172.22.0.12/24",
+                "IPv6Address": ""
+            },
+            "ea00edd7a7a332540a3fadf292c21b9bc0d745079aba0b80127a27ad6519aaf0": {
+                "Name": "postgres",
+                "EndpointID": "7d61e3f4dc372bd0c10ac97b11901747acaabb7c627c64f1cd59ab0198a2d523",
+                "MacAddress": "3e:a5:45:5f:c9:b5",
+                "IPv4Address": "172.22.0.10/24",
+                "IPv6Address": ""
+            }
+[...]
+
+Izolacja sieciowa 
+docker exec nginx ping -c 3 postgres
+OCI runtime exec failed: exec failed: unable to start container process: exec: "ping": executable file not found in $PATH
+
+docker exec backend_1 ping -c 3 postgres
+PING postgres (172.22.0.10): 56 data bytes
+64 bytes from 172.22.0.10: seq=0 ttl=42 time=0.392 ms
+64 bytes from 172.22.0.10: seq=1 ttl=42 time=0.066 ms
+64 bytes from 172.22.0.10: seq=2 ttl=42 time=0.089 ms
+
+
+--- postgres ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.066/0.182/0.392 ms
+
+docker inspect worker | grep proxy-net
+nie ma w proxy-net
+
+docker inspect worker | grep Ports
+brak portów
+
+Load balancing
+curl -i localhost/api/items
+HTTP/1.1 200 OK
+Server: nginx/1.29.6
+[...]
+X-Instance-ID: backend_1
+ETag: W/"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w"
+
+curl -i localhost/api/items
+HTTP/1.1 200 OK
+Server: nginx/1.29.6
+[...]
+X-Instance-ID: backend_2
+ETag: W/"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w"
+
+Default bridge vs custom bridge
+docker run -dit --name c1 alpine sh
+35a07022b750a4cc60c90e8ce707465d723cb835f51fee686b7d576861d25e66
+docker run -dit --name c2 alpine sh
+da9268e29d0e8ad84d3e1f9fdeb25746348a3a1d160cd6b614e46143530a0727
+ping: bad address 'c2'
+
+docker network create test-net
+112d1a63996fa187e283f6d3cc4c6f7758c15c237fb12fd0a88b3ab2c3826c6d 
+docker run -dit --name c3 --network test-net alpine sh
+7336e582ed8bf7fcfc891ec63801a3e77cf48b8b1d252122b073638e6288fd1e
+docker run -dit --name c4 --network test-net alpine sh
+6754e08587fa711f45390db7cb9dfb3ea2a5efa730675df0bc2baeb700f01efe
+docker exec c3 ping c4
+PING c4 (172.18.0.3): 56 data bytes
+64 bytes from 172.18.0.3: seq=0 ttl=64 time=0.191 ms
+64 bytes from 172.18.0.3: seq=1 ttl=64 time=0.066 ms
+64 bytes from 172.18.0.3: seq=2 ttl=64 time=0.062 ms
+64 bytes from 172.18.0.3: seq=3 ttl=64 time=0.081 ms
+64 bytes from 172.18.0.3: seq=4 ttl=64 time=0.083 ms
+64 bytes from 172.18.0.3: seq=5 ttl=64 time=0.071 ms
+64 bytes from 172.18.0.3: seq=6 ttl=64 time=0.066 ms
+64 bytes from 172.18.0.3: seq=7 ttl=64 time=0.107 ms
+64 bytes from 172.18.0.3: seq=8 ttl=64 time=0.066 ms
+64 bytes from 172.18.0.3: seq=9 ttl=64 time=0.093 ms
+64 bytes from 172.18.0.3: seq=10 ttl=64 time=0.063 ms
+64 bytes from 172.18.0.3: seq=11 ttl=64 time=0.066 ms
+64 bytes from 172.18.0.3: seq=12 ttl=64 time=0.063 ms
+64 bytes from 172.18.0.3: seq=13 ttl=64 time=0.066 ms
+64 bytes from 172.18.0.3: seq=14 ttl=64 time=0.063 ms
+64 bytes from 172.18.0.3: seq=15 ttl=64 time=0.089 ms
+
+Statyczne IP, brama i adres MAC — konfiguracja i weryfikacja 
+docker inspect backend_1
+"Gateway": "172.22.0.1",
+"IPAddress": "172.22.0.11",
+"MacAddress": "72:67:c6:ee:cf:5f",
+
+docker network inspect proxy-net | grep Gateway
+"Gateway": "172.20.0.1"
+
+Typy sieci: host i none z komentarzem zastosowania
+
+docker run -d --network host --name host-nginx nginx
+ce870b8d7e49841916155bb57eeb952f6bf35955c8608120d1e8c2038dca9f0f
+curl localhost 
+<html>
+<head><title>404 Not Found</title></head>
+<body>
+[...]
+
+Kontener działa w trybie host, więc korzysta bezposrednio z portow hosta — nie ma potrzeby używania -p do mapowania portow.
+Używany gdy aplikacja musi mieć bezpośredni dostęp do sieci hosta, np. monitoring lub systemy wymagające niskiego opóźnienia np. przy serwerach gier czy systemach tradingowych.
+
+docker run --rm --network none alpine ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+Kontener w trybie none ma tylko interfejs loopback i jest calkowicie odizolowany od sieci — nie ma dostępu do internetu ani innych kontenerow.
+Używany do izolowanych zadań, takich jak batch processing lub sandboxing, gdzie dostęp do sieci nie jest potrzebny lub jest niepożądany.
