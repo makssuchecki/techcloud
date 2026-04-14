@@ -36,7 +36,7 @@ docker run -d \
   redis
 
 sleep 8
-
+  
 docker run -d \
   --name backend_1 \
   --network proxy-net \
