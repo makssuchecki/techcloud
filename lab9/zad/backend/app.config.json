@@ -1,0 +1,5 @@
+{
+  "instanceName": "backend-instance",
+  "timeout": 5000,
+  "rateLimit": 100
+}
